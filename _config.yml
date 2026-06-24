@@ -1,8 +1,8 @@
-title: "LTX-2 AI 动漫创作指南"
-tagline: "基于 LTX-2 开源模型的 AI 动漫制作完整技术指南"
+title: "LTX-2 技术指南"
+tagline: "基于 LTX-2 开源模型的系列技术电子书"
 description: >-
-  一份面向 AI 动漫创作者的完整技术指南，基于 LTX-2 —— 目前最先进的
-  开源音视频生成基础模型。涵盖从环境搭建到生产级动漫制作的完整流程。
+  基于 Lightricks LTX-2 开源音视频生成模型的系列技术电子书。
+  涵盖 AI 动漫创作、视频生成、模型训练等主题，从入门到进阶。
 author: liso
 lang: zh-CN
 repository: lisoboss/ltx-book
