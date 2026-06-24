@@ -1,6 +1,7 @@
 ---
 layout: chapter
 title: "IC-LoRA 风格控制"
+book: "AI 动漫"
 chapter_number: 7
 subtitle: "IC-LoRA（In-Context LoRA）是 LTX-2 独有的能力，可以在不训练的情况下实现风格迁移和角色一致化"
 permalink: /chapters/IC-LoRA风格控制/
