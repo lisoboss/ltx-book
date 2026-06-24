@@ -15,9 +15,7 @@ minima:
   skin: auto
   date_format: "%Y-%m-%d"
 
-# 每本书是一个 Jekyll collection，目录放在 books/ 下
-collections_dir: books
-
+# 每本书是一个 Jekyll collection（_<slug>/ 目录）
 collections:
   ai-anime:
     output: true

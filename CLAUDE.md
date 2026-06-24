@@ -10,8 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 ltx-book/
-├── books/                     # Each subdirectory starting with _ is a Jekyll collection
-│   └── _ai-anime/             # "AI 动漫" book (collection: ai-anime)
+├── _ai-anime/                 # "AI 动漫" book (collection: ai-anime)
 ├── _layouts/                  # Jekyll layouts (default, chapter, home)
 ├── _includes/                 # Jekyll includes (head, header, footer, chapter-nav)
 ├── assets/css/                # SCSS styles (CJK typography customizations)
@@ -25,7 +24,7 @@ ltx-book/
 
 ## Book Content
 
-Each book is a Jekyll collection under `books/_<slug>/`. Chapters are `.md` files with YAML frontmatter.
+Each book is a Jekyll collection at `_<slug>/` in the repo root. Chapters are `.md` files with YAML frontmatter.
 
 ### Chapter frontmatter
 
@@ -43,7 +42,7 @@ The `_config.yml` `defaults` section auto-sets `layout: chapter` for all collect
 
 ### Adding a new book
 
-1. Create `books/_new-book/` with chapter `.md` files including frontmatter
+1. Create `_new-book/` with chapter `.md` files including frontmatter
 2. Add the collection to `_config.yml`:
    ```yaml
    collections:
@@ -59,7 +58,7 @@ The `_config.yml` `defaults` section auto-sets `layout: chapter` for all collect
 
 ### Adding a new chapter
 
-1. Create `books/_collection-name/NN-Title.md` with frontmatter
+1. Create `_collection-name/NN-Title.md` with frontmatter
 2. That's it — no duplication needed. The file is both source and Jekyll content.
 
 ## Writing Conventions
@@ -73,8 +72,7 @@ The `_config.yml` `defaults` section auto-sets `layout: chapter` for all collect
 
 The site is built with **Jekyll + minima theme** and deployed via GitHub Actions from `main`.
 
-- **Collections**: Each book under `books/_<slug>/` is a separate Jekyll collection
-- **Collection directory**: `collections_dir: books` in `_config.yml`
+- **Collections**: Each book is a Jekyll collection at `_<slug>/` in the repo root
 - **Theme**: minima (official GitHub Pages theme)
 - **Fonts**: Noto Sans SC (body), Noto Sans Mono (code)
 - **CJK typography**: paragraph indent (2em), justified text, line-height 1.9
