@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**ltx-book** is a Chinese-language technical guidebook for AI anime (动漫) creation using **LTX-2**, the open-source DiT-based audio-video foundation model from Lightricks. The book covers the full pipeline from environment setup to production-quality anime generation, including character training, style control, keyframe interpolation, and audio-video synchronization.
+**ltx-book** is a series of Chinese-language technical ebooks about AI video generation using **LTX-2**, the open-source DiT-based audio-video foundation model from Lightricks. Content is authored in Markdown and published via **GitHub Pages + Jekyll**.
 
 ## Repository Structure
 
@@ -14,95 +14,72 @@ ltx-book/
 ├── _layouts/                  # Jekyll layouts (default, chapter, home)
 ├── _includes/                 # Jekyll includes (head, header, footer, chapter-nav)
 ├── assets/css/                # SCSS styles (CJK typography customizations)
-├── books/AI Anime/            # Original source chapters (excluded from Jekyll build)
+├── books/                     # Original source chapters (excluded from Jekyll build)
 ├── .github/workflows/         # GitHub Actions Pages deployment
-├── LTX-2/                     # Git submodule: Lightricks/LTX-2 official repo
-│   ├── packages/
-│   │   ├── ltx-core/          # Core model (transformer, VAE, text encoder, scheduler)
-│   │   ├── ltx-pipelines/     # Inference pipelines (10 pipeline variants)
-│   │   └── ltx-trainer/       # Training toolkit (LoRA, full fine-tuning, IC-LoRA)
-│   └── .claude/skills/
-│       └── train-model/       # Skill: end-to-end LTX-2 model training
 ├── _config.yml                # Jekyll site configuration
 ├── Gemfile                    # Ruby dependencies (github-pages gem)
-├── index.md                   # Home page / table of contents
+├── index.md                   # Home landing page
+├── books.md                   # Books index (series overview with chapter listing)
 └── .gitignore                 # Standard Jekyll/Pages gitignore
 ```
 
-## Book Structure
+## Book Content
 
-The `books/AI Anime/` chapters form a progressive learning path:
+Each book lives in its own subdirectory under `books/`. Chapters are standalone `.md` files numbered `NN-Title.md`. The `_chapters/` directory mirrors this content as a Jekyll collection with YAML frontmatter added.
 
-| Chapter | Topic | Role in Pipeline |
-|---------|-------|------------------|
-| 00 | Foreword | Project overview, why LTX-2 for anime |
-| 01 | AI Anime Overview | Technical roadmap: static → dynamic |
-| 02 | Environment Setup | Python 3.12+, CUDA 12.4+, uv, model downloads |
-| 03 | LTX-2 Architecture | DiT transformer, VAE, prompt encoder, scheduler |
-| 04 | Prompt Engineering | Chronological action descriptions, camera/cinematography language |
-| 05 | Image-to-Video | TI2Vid pipeline workflow, first-frame conditioning |
-| 06 | Keyframe Interpolation | Smooth motion generation between keyframes |
-| 07 | IC-LoRA Style Control | Unified anime style via in-context LoRA |
-| 08 | LoRA Character Training | Custom character fine-tuning |
-| 09 | Video Extension & Repair | Retake, LipDub, video extension |
-| 10 | Complete Workflow | End-to-end pipeline: pre-production → post-production |
-| 11 | Advanced Tips | Performance optimization, quality tuning |
-| 12 | Appendix | Command reference, FAQ, resource index |
+### Frontmatter per chapter
 
-## Working with the Book Content
+```yaml
+---
+layout: chapter
+title: "章节标题"
+book: "Book Display Name"
+chapter_number: N
+subtitle: "可选的副标题"
+permalink: /chapters/slug/
+---
+```
 
-The book chapters are standalone markdown files covering both conceptual explanations and practical CLI/code examples. Chapters reference specific LTX-2 pipelines and commands. When editing book content:
+The `book` field groups chapters into book series. Both `index.md` and `books.md` use Liquid's `group_by: "book"` to auto-organize chapters per book.
 
-- All chapters use Chinese with English technical terms preserved inline
+### Adding a new book
+
+1. Create `books/New Book/` with chapter `.md` files
+2. Create matching chapter files in `_chapters/` with frontmatter (`book: "New Book"`)
+3. The books index and home page auto-detect the new book via `group_by`
+
+### Adding a new chapter
+
+1. Write the chapter in `books/Book Name/NN-Title.md`
+2. Copy to `_chapters/NN-Title.md` with frontmatter added
+3. Update both locations when editing
+
+## Writing Conventions
+
+- All content is in Chinese with English technical terms preserved inline
 - Code blocks use `bash`, `python`, and `yaml` language tags
-- Pipeline names (e.g., `TI2VidTwoStagesPipeline`, `ICLoraPipeline`) should match the LTX-2 submodule exactly
-- Command examples should reference paths relative to the LTX-2 repo root (e.g., `uv run python scripts/train.py configs/t2v_lora.yaml`)
+- Pipeline and command references should be accurate (verify against the `LTX-2/` git submodule)
+- Chapter 00 is the foreword (not listed in per-book previews on the home page)
 
 ## GitHub Pages
 
-The site is built with **Jekyll + minima theme** and deployed via GitHub Actions from `main`. Chapter content is authored in `books/AI Anime/` (original source) and replicated to `_chapters/` (Jekyll collection with frontmatter). When editing chapters, update both locations.
+The site is built with **Jekyll + minima theme** and deployed via GitHub Actions from `main`.
+
+- **Theme**: minima (official GitHub Pages theme)
+- **Fonts**: Noto Sans SC (body), Noto Sans Mono (code)
+- **CJK typography**: paragraph indent (2em), justified text, line-height 1.9
+- **Navigation**: chapter-nav uses Liquid to compute prev/next from `site.chapters` sorted by `chapter_number`
+- **Excluded from build**: `books/`, `LTX-2/`, `CLAUDE.md`, `.claude/`
+
+The `jekyll-relative-links` plugin converts `.md` links in chapter content to correct output URLs, so existing "下一章" links at the bottom of each chapter work automatically.
+
+### Local preview
+
+```bash
+bundle install
+bundle exec jekyll serve
+```
 
 ## LTX-2 Submodule
 
-The submodule at `LTX-2` tracks the official Lightricks repository. Key submodule facts:
-
-- **Python version**: 3.12+ managed with `uv`
-- **Setup**: `cd LTX-2 && uv sync --frozen && source .venv/bin/activate`
-- **Linting (ltx-trainer)**: `cd LTX-2/packages/ltx-trainer && uv run ruff check .`
-- **Tests (ltx-trainer)**: `cd LTX-2/packages/ltx-trainer && uv run pytest`
-- **Training**: `cd LTX-2/packages/ltx-trainer && uv run python scripts/train.py configs/t2v_lora.yaml`
-- **Submodule update**: `git submodule update --remote LTX-2`
-
-### Pipeline Quick Reference
-
-The LTX-2 submodule provides these inference pipelines (all in `packages/ltx-pipelines/src/ltx_pipelines/`):
-
-- **`TI2VidTwoStagesPipeline`** — Production-quality text/image-to-video (recommended default)
-- **`TI2VidTwoStagesHQPipeline`** — Same but with Res2s second-order sampler (fewer steps, better quality)
-- **`TI2VidOneStagePipeline`** — Single-stage for quick prototyping
-- **`DistilledPipeline`** — Fastest (8-step distilled model)
-- **`ICLoraPipeline`** — Video-to-video / image-to-video transformations
-- **`KeyframeInterpolationPipeline`** — Interpolate between keyframe images
-- **`RetakePipeline`** — Regenerate specific time regions of existing video
-- **`LipDubPipeline`** — Lip dubbing with speaker identity matching
-- **`A2VidPipelineTwoStage`** — Audio-to-video generation
-- **`HDRICLoraPipeline`** — Video-to-video with HDR output
-
-### Model Requirements
-
-- **GPU**: 24GB+ VRAM for inference, 80GB+ for training (32GB possible with low-VRAM config)
-- **CUDA**: 12.4+
-- **OS**: Linux required for training (Triton dependency); inference works on Windows/WSL
-- **Checkpoints**: Download from [Lightricks/LTX-2.3 on HuggingFace](https://huggingface.co/Lightricks/LTX-2.3)
-
-### Frame & Resolution Constraints
-
-LTX-2 latents have strict constraints: frames must satisfy `frames % 8 == 1` (valid: 1, 9, 17, 25, 33, 41...); width and height must be divisible by 32.
-
-## Train-Model Skill
-
-The repository includes a skill at `LTX-2/.claude/skills/train-model/` for end-to-end LTX-2 model training. It handles dataset probing, mode selection, preprocessing, training launch, monitoring, and post-train validation. Reference phases are in `phases/` and supporting docs in `references/`. Use this skill when asked to train, fine-tune, LoRA, or produce custom LTX-2 models.
-
-## When Book Content References Submodule Code
-
-When updating book chapters with code examples or pipeline references, verify against the actual submodule code. Pipeline files are at `LTX-2/packages/ltx-pipelines/src/ltx_pipelines/*.py`. Training configs are at `LTX-2/packages/ltx-trainer/configs/*.yaml`. The ltx-trainer CLAUDE.md (`LTX-2/packages/ltx-trainer/AGENTS.md`) is the authoritative reference for training internals.
+A git submodule at `LTX-2/` tracks the upstream [Lightricks/LTX-2](https://github.com/Lightricks/LTX-2) repository. It is excluded from Jekyll builds and CI checkout (`submodules: false`). The submodule serves as a reference for verifying pipeline names, commands, and API usage in book content. Its own CLAUDE.md at `LTX-2/packages/ltx-trainer/AGENTS.md` is authoritative for training internals.
