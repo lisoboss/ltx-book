@@ -3,7 +3,8 @@ layout: chapter
 title: "Prompt 工程"
 book: "AI 动漫"
 chapter_number: 4
-subtitle: "Prompt 是 AI 动漫创作的"剧本" —— 写好它，视频就成功了一半"
+subtitle: >-
+  Prompt 是 AI 动漫创作的"剧本" —— 写好它，视频就成功了一半
 permalink: /chapters/Prompt工程/
 ---
 

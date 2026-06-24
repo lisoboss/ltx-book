@@ -5,6 +5,7 @@ description: >-
   开源音视频生成基础模型。涵盖从环境搭建到生产级动漫制作的完整流程。
 author: liso
 lang: zh-CN
+repository: lisoboss/ltx-book
 
 # 主题配置
 theme: minima
