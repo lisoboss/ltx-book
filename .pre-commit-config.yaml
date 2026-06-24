@@ -1,0 +1,10 @@
+repos:
+  - repo: local
+    hooks:
+      - id: jekyll-build
+        name: Check Jekyll build
+        entry: bash -c 'PATH="/opt/homebrew/opt/ruby/bin:$PATH" bundle exec jekyll build --safe --strict-front-matter'
+        language: system
+        pass_filenames: false
+        always_run: true
+        verbose: true
