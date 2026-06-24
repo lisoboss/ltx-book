@@ -1,6 +1,6 @@
 ---
 layout: home
-title: "LTX-2 AI 动漫创作指南"
+title: "LTX-2 技术指南"
 ---
 
 {{ site.description }}
@@ -15,7 +15,7 @@ title: "LTX-2 AI 动漫创作指南"
 
 ## {{ book.name }}
 
-共 {{ total }} 章 · [查看全部]({{ '/books/' | relative_url }})
+共 {{ total }} 章 · [查看完整目录]({{ '/books/' | relative_url }})
 
 {% assign first_few = book_chapters | slice: 0, 6 %}
 {% for chapter in first_few %}

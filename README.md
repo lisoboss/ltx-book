@@ -1,6 +1,6 @@
-# LTX-2 AI 动漫创作指南
+# LTX-2 技术指南
 
-基于 **[LTX-2](https://github.com/Lightricks/LTX-2)** 开源音视频生成模型的技术指南系列，面向 AI 动漫创作者，涵盖从环境搭建到生产级动漫制作的完整流程。
+基于 **[LTX-2](https://github.com/Lightricks/LTX-2)** 开源音视频生成模型的系列技术电子书。涵盖 AI 动漫创作、视频生成、模型训练等主题，从入门到进阶。
 
 📖 **在线阅读**: [lisoboss.github.io/ltx-book](https://lisoboss.github.io/ltx-book/)
 
