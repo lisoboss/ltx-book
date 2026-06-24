@@ -1,0 +1,117 @@
+---
+---
+
+// 覆盖 minima 变量
+$base-font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+$mono-font-family: "Noto Sans Mono", "JetBrains Mono", "Source Code Pro", "Fira Code", monospace;
+$base-font-size: 16px;
+$base-line-height: 1.9;
+$spacing-unit: 30px;
+$content-width: 860px;
+
+// 导入 minima
+@import "minima";
+
+// CJK 排版定制
+.chapter-content {
+  text-align: justify;
+
+  p {
+    margin-bottom: 1.2em;
+    text-indent: 2em;
+  }
+
+  p:first-of-type {
+    text-indent: 0;
+  }
+
+  // 紧跟在标题后的段落不缩进
+  h2 + p, h3 + p, h4 + p {
+    text-indent: 0;
+  }
+}
+
+// 章节副标题
+.chapter-subtitle {
+  font-size: 1.1em;
+  color: #666;
+  font-style: italic;
+  border-left: 4px solid #ddd;
+  padding-left: 1em;
+  margin-bottom: 1.5em;
+}
+
+// 代码块
+pre, code {
+  font-family: $mono-font-family;
+  font-size: 0.85em;
+}
+
+pre {
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+// 行内代码
+:not(pre) > code {
+  padding: 2px 6px;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+}
+
+// 章节导航
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 3em;
+  padding-top: 1em;
+  border-top: 1px solid #ddd;
+  font-size: 0.95em;
+
+  &-previous, &-next {
+    max-width: 40%;
+  }
+
+  &-home {
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// 标题样式适配中文
+h1 { font-size: 1.8em; font-weight: 700; }
+h2 { font-size: 1.4em; font-weight: 600; margin-top: 1.8em; }
+h3 { font-size: 1.2em; font-weight: 600; }
+h4 { font-size: 1.05em; font-weight: 600; }
+
+// 表格样式
+table {
+  font-size: 0.9em;
+  th, td {
+    padding: 8px 12px;
+  }
+}
+
+// 首页描述
+.home-description {
+  font-size: 1.05em;
+  color: #555;
+  margin-bottom: 2em;
+}
+
+// blockquote 样式
+.chapter-content blockquote {
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border-left: 4px solid #ccc;
+  color: #555;
+  background: #f9f9f9;
+}

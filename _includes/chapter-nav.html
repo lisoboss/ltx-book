@@ -1,0 +1,32 @@
+{% assign chapters = site.chapters | sort: "chapter_number" %}
+{% assign prev_chapter = nil %}
+{% assign next_chapter = nil %}
+
+{% for chapter in chapters %}
+  {% if chapter.chapter_number == page.chapter_number %}
+    {% unless forloop.first %}
+      {% assign prev_index = forloop.index0 | minus: 1 %}
+      {% assign prev_chapter = chapters[prev_index] %}
+    {% endunless %}
+    {% unless forloop.last %}
+      {% assign next_index = forloop.index0 | plus: 1 %}
+      {% assign next_chapter = chapters[next_index] %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+
+<nav class="chapter-nav">
+  <div class="chapter-nav-previous">
+    {% if prev_chapter %}
+    <a href="{{ prev_chapter.url | relative_url }}">&larr; {{ prev_chapter.title }}</a>
+    {% endif %}
+  </div>
+  <div class="chapter-nav-home">
+    <a href="{{ '/' | relative_url }}">目录</a>
+  </div>
+  <div class="chapter-nav-next">
+    {% if next_chapter %}
+    <a href="{{ next_chapter.url | relative_url }}">{{ next_chapter.title }} &rarr;</a>
+    {% endif %}
+  </div>
+</nav>

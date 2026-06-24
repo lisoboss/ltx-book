@@ -1,0 +1,51 @@
+title: "LTX-2 AI 动漫创作指南"
+tagline: "基于 LTX-2 开源模型的 AI 动漫制作完整技术指南"
+description: >-
+  一份面向 AI 动漫创作者的完整技术指南，基于 LTX-2 —— 目前最先进的
+  开源音视频生成基础模型。涵盖从环境搭建到生产级动漫制作的完整流程。
+author: liso
+lang: zh-CN
+
+# 主题配置
+theme: minima
+
+# minima 主题自定义
+minima:
+  skin: auto
+  date_format: "%Y-%m-%d"
+
+# 集合定义
+collections:
+  chapters:
+    output: true
+    permalink: /:collection/:name/
+
+# 默认 frontmatter
+defaults:
+  - scope:
+      path: ""
+      type: "chapters"
+    values:
+      layout: "chapter"
+
+# 从构建中排除的路径
+exclude:
+  - LTX-2/
+  - books/
+  - vendor/
+  - CLAUDE.md
+  - .claude/
+  - .gitmodules
+  - .gitignore
+
+# 启用的插件（GitHub Pages 允许）
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-relative-links
+  - jekyll-sitemap
+
+# jekyll-relative-links 设置
+relative_links:
+  enabled: true
+  collections: true
