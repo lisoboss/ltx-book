@@ -1,10 +1,9 @@
 ---
 layout: chapter
 title: "LoRA 角色训练"
-book: "AI 动漫"
 chapter_number: 8
 subtitle: "训练专属的动漫角色 LoRA，让你在不同镜头和场景中保持角色一致性"
-permalink: /chapters/LoRA角色训练/
+permalink: /books/ai-anime/LoRA角色训练/
 ---
 
 # 第 8 章：LoRA 角色训练

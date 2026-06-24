@@ -8,18 +8,13 @@ permalink: /books/
 
 {{ site.description }}
 
-{% assign books = site.chapters | group_by: "book" %}
+{% assign book = site["ai-anime"] | sort: "chapter_number" %}
 
-{% for book in books %}
-{% assign book_chapters = book.items | sort: "chapter_number" %}
-
-## {{ book.name }}
+## AI 动漫
 
 | 章节 | 内容 |
 |------|------|
-{% for chapter in book_chapters %}| [{{ chapter.title }}]({{ chapter.url | relative_url }}) | {% if chapter.subtitle %}{{ chapter.subtitle }}{% endif %} |
-{% endfor %}
-
+{% for chapter in book %}| [{{ chapter.title }}]({{ chapter.url | relative_url }}) | {% if chapter.subtitle %}{{ chapter.subtitle }}{% endif %} |
 {% endfor %}
 
 </div>

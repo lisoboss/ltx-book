@@ -1,3 +1,11 @@
+---
+layout: chapter
+title: "IC-LoRA 风格控制"
+chapter_number: 7
+subtitle: "IC-LoRA（In-Context LoRA）是 LTX-2 独有的能力，可以在不训练的情况下实现风格迁移和角色一致化"
+permalink: /books/ai-anime/IC-LoRA风格控制/
+---
+
 # 第 7 章：IC-LoRA 风格控制
 
 > IC-LoRA（In-Context LoRA）是 LTX-2 独有的能力——通过一张或多张参考图像/视频，精确控制生成内容的风格、角色外观和运动模式。这是实现"统一动漫风格"的核心技术。

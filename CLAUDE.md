@@ -10,68 +10,76 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 ltx-book/
-├── _chapters/                 # Jekyll collection: chapter files with frontmatter
+├── books/                     # Each subdirectory starting with _ is a Jekyll collection
+│   └── _ai-anime/             # "AI 动漫" book (collection: ai-anime)
 ├── _layouts/                  # Jekyll layouts (default, chapter, home)
 ├── _includes/                 # Jekyll includes (head, header, footer, chapter-nav)
 ├── assets/css/                # SCSS styles (CJK typography customizations)
-├── books/                     # Original source chapters (excluded from Jekyll build)
 ├── .github/workflows/         # GitHub Actions Pages deployment
 ├── _config.yml                # Jekyll site configuration
 ├── Gemfile                    # Ruby dependencies (github-pages gem)
 ├── index.md                   # Home landing page
 ├── books.md                   # Books index (series overview with chapter listing)
-└── .gitignore                 # Standard Jekyll/Pages gitignore
+└── .pre-commit-config.yaml    # Pre-commit hook: validates Jekyll build
 ```
 
 ## Book Content
 
-Each book lives in its own subdirectory under `books/`. Chapters are standalone `.md` files numbered `NN-Title.md`. The `_chapters/` directory mirrors this content as a Jekyll collection with YAML frontmatter added.
+Each book is a Jekyll collection under `books/_<slug>/`. Chapters are `.md` files with YAML frontmatter.
 
-### Frontmatter per chapter
+### Chapter frontmatter
 
 ```yaml
 ---
 layout: chapter
 title: "章节标题"
-book: "Book Display Name"
 chapter_number: N
 subtitle: "可选的副标题"
-permalink: /chapters/slug/
+permalink: /books/collection-name/slug/
 ---
 ```
 
-The `book` field groups chapters into book series. Both `index.md` and `books.md` use Liquid's `group_by: "book"` to auto-organize chapters per book.
+The `_config.yml` `defaults` section auto-sets `layout: chapter` for all collection items, so the `layout` field can be omitted in individual files.
 
 ### Adding a new book
 
-1. Create `books/New Book/` with chapter `.md` files
-2. Create matching chapter files in `_chapters/` with frontmatter (`book: "New Book"`)
-3. The books index and home page auto-detect the new book via `group_by`
+1. Create `books/_new-book/` with chapter `.md` files including frontmatter
+2. Add the collection to `_config.yml`:
+   ```yaml
+   collections:
+     ai-anime:
+       output: true
+       permalink: /books/:collection/:name/
+     new-book:
+       output: true
+       permalink: /books/:collection/:name/
+   ```
+3. Add a `defaults` scope for the new collection type
+4. Add the book to `index.md` and `books.md` Liquid templates (reference via `site["collection-name"]`)
 
 ### Adding a new chapter
 
-1. Write the chapter in `books/Book Name/NN-Title.md`
-2. Copy to `_chapters/NN-Title.md` with frontmatter added
-3. Update both locations when editing
+1. Create `books/_collection-name/NN-Title.md` with frontmatter
+2. That's it — no duplication needed. The file is both source and Jekyll content.
 
 ## Writing Conventions
 
 - All content is in Chinese with English technical terms preserved inline
 - Code blocks use `bash`, `python`, and `yaml` language tags
 - Pipeline and command references should be accurate (verify against the `LTX-2/` git submodule)
-- Chapter 00 is the foreword (not listed in per-book previews on the home page)
+- Chapter 00 is the foreword (excluded from preview on the home page via `chapter_number == 0`)
 
 ## GitHub Pages
 
 The site is built with **Jekyll + minima theme** and deployed via GitHub Actions from `main`.
 
+- **Collections**: Each book under `books/_<slug>/` is a separate Jekyll collection
+- **Collection directory**: `collections_dir: books` in `_config.yml`
 - **Theme**: minima (official GitHub Pages theme)
 - **Fonts**: Noto Sans SC (body), Noto Sans Mono (code)
 - **CJK typography**: paragraph indent (2em), justified text, line-height 1.9
-- **Navigation**: chapter-nav uses Liquid to compute prev/next from `site.chapters` sorted by `chapter_number`
-- **Excluded from build**: `books/`, `LTX-2/`, `CLAUDE.md`, `.claude/`
-
-The `jekyll-relative-links` plugin converts `.md` links in chapter content to correct output URLs, so existing "下一章" links at the bottom of each chapter work automatically.
+- **Navigation**: chapter-nav uses Liquid to compute prev/next from collection sorted by `chapter_number`
+- **Pre-commit**: validates Jekyll build on every commit
 
 ### Local preview
 
@@ -82,4 +90,4 @@ bundle exec jekyll serve
 
 ## LTX-2 Submodule
 
-A git submodule at `LTX-2/` tracks the upstream [Lightricks/LTX-2](https://github.com/Lightricks/LTX-2) repository. It is excluded from Jekyll builds and CI checkout (`submodules: false`). The submodule serves as a reference for verifying pipeline names, commands, and API usage in book content. Its own CLAUDE.md at `LTX-2/packages/ltx-trainer/AGENTS.md` is authoritative for training internals.
+A git submodule at `LTX-2/` tracks the upstream [Lightricks/LTX-2](https://github.com/Lightricks/LTX-2) repository. It is excluded from Jekyll builds and CI checkout (`submodules: false`). Used only as a reference for verifying pipeline names, commands, and API usage in book content.

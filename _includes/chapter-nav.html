@@ -1,4 +1,4 @@
-{% assign chapters = site.chapters | sort: "chapter_number" %}
+{% assign chapters = site["ai-anime"] | sort: "chapter_number" %}
 {% assign prev_chapter = nil %}
 {% assign next_chapter = nil %}
 
@@ -22,7 +22,8 @@
     {% endif %}
   </div>
   <div class="chapter-nav-home">
-    <a href="{{ '/' | relative_url }}">目录</a>
+    <a href="{{ '/' | relative_url }}">首页</a>
+    <a href="{{ '/books/' | relative_url }}">书目</a>
   </div>
   <div class="chapter-nav-next">
     {% if next_chapter %}

@@ -1,3 +1,12 @@
+---
+layout: chapter
+title: "Prompt 工程"
+chapter_number: 4
+subtitle: >-
+  Prompt 是 AI 动漫创作的"剧本" —— 写好它，视频就成功了一半
+permalink: /books/ai-anime/Prompt工程/
+---
+
 # 第 4 章：Prompt 工程
 
 > Prompt 是 AI 动漫创作的"剧本"。好的 prompt 是高质量动漫视频的基础。
