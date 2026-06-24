@@ -21,12 +21,20 @@ collections:
   ai-anime:
     output: true
     permalink: /books/:collection/:name/
+  ltx-sdk:
+    output: true
+    permalink: /books/:collection/:name/
 
 # 默认 frontmatter
 defaults:
   - scope:
       path: ""
       type: "ai-anime"
+    values:
+      layout: "chapter"
+  - scope:
+      path: ""
+      type: "ltx-sdk"
     values:
       layout: "chapter"
 
